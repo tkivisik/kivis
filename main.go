@@ -20,7 +20,7 @@ func Version() {
 
 func main() {
 	usage := func() {
-		fmt.Printf("usage:\n\tkivis { add | show | reset | version }\n")
+		fmt.Printf("usage:\n\tkivis { add | show | locate | destroy | version }\n")
 		os.Exit(2)
 	}
 	if len(os.Args) < 2 {
@@ -37,9 +37,9 @@ func main() {
 		notes.Append(note)
 	case "show":
 		notes.Print()
-	case "location":
+	case "locate":
 		notes.Locate()
-	case "reset":
+	case "destroy":
 		notes.Destroy()
 	case "version":
 		Version()
