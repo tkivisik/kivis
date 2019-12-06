@@ -30,7 +30,7 @@ func main() {
 	args := os.Args[1:]
 	switch os.Args[1] {
 	case "add":
-		note := strings.Join(args, " ")
+		note := strings.Join(args[1:], " ")
 		notes.Append(note)
 	case "show":
 		notes.Print()

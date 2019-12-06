@@ -53,8 +53,8 @@ func (n Notes) Append(text string) error {
 	defer f.Close()
 
 	timestamp := time.Now().Format("2006-01-02 15:04:05\t")
-	line := fmt.Sprintf("%s\t%q", timestamp, text)
-	fmt.Println(line)
+	line := fmt.Sprintf("%s\t%s", timestamp, text)
+	fmt.Fprintln(f, line)
 	return nil
 }
 
