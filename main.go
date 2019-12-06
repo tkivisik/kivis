@@ -1,7 +1,6 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -10,21 +9,19 @@ import (
 	"github.com/tkivisik/kivis/notes"
 )
 
+var usage = "usage:\n\tkivis { add | show | locate | destroy | version }\n"
 var version = "v0.2"
 
 // Version shows the current version of the program
 func Version() {
 	fmt.Printf("kivis %s\n\n", version)
-	flag.Usage()
+	fmt.Println(usage)
 }
 
 func main() {
-	usage := func() {
-		fmt.Printf("usage:\n\tkivis { add | show | locate | destroy | version }\n")
-		os.Exit(2)
-	}
 	if len(os.Args) < 2 {
-		usage()
+		fmt.Println(usage)
+		os.Exit(2)
 	}
 
 	notesLocation := MakeDir()
