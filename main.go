@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strings"
 
-	"github.com/tkivisik/kivis"
+	"github.com/tkivisik/kivis/notes"
 )
 
-var version = "v0.1"
+var version = "v0.2"
 
 // Version shows the current version of the program
 func Version() {
@@ -26,26 +27,27 @@ func main() {
 		usage()
 	}
 
-	notesPath := MakeDir()
-	notes := kivis.Notes{Path: notesPath}
+	notesLocation := MakeDir()
+	notes := notes.Notes{Location: notesLocation}
 
 	args := os.Args[1:]
 	switch os.Args[1] {
 	case "add":
-		notes.AddNote(args)
+		note := strings.Join(args, " ")
+		notes.Append(note)
 	case "show":
 		notes.Print()
-	case "path":
-		fmt.Println(notes.Path)
+	case "location":
+		notes.Locate()
 	case "reset":
-		notes.Reset()
+		notes.Destroy()
 	case "version":
 		Version()
 	}
 }
 
 // MakeDir creates an app directory if one does not exist
-func MakeDir() (notesPath string) {
+func MakeDir() (notesLocation string) {
 	homeDir, err := os.UserHomeDir()
 	if err != nil {
 		fmt.Println(err)
@@ -56,6 +58,6 @@ func MakeDir() (notesPath string) {
 		fmt.Printf("%s: %s", err, "could not set default notes path")
 	}
 
-	notesPath = filepath.Join(notesDir, ".notes")
-	return notesPath
+	notesLocation = filepath.Join(notesDir, ".notes")
+	return notesLocation
 }
